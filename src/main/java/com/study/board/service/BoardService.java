@@ -15,14 +15,23 @@ public class BoardService {
     // 스프링의 autowired 어노테이션을 사용하면 알아서 읽어와서 주입을 해준다.
 
 
+    //글 작성 처리
     public void write(Board board){
 
         boardRepository.save(board);
     }
 
+    // 게시글 리스트 처리
     public List<Board> boardList(){
 
         return boardRepository.findAll();
+    }
+
+    // 특정 게시글 불러오기
+    public Board boardView(Integer id){
+        
+        return boardRepository.findById(id).get();
+        // 매개변수로 id를 넣어야함.
     }
 
 } // jpa를 활용하여 테이블에 데이터 넣기

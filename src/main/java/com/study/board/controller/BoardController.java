@@ -47,5 +47,13 @@ public class BoardController {
 
         return "boardlist";
     }
+
+    @GetMapping("/board/view") // localhost:8080/board/view?id=1 -> 1번 게시글로 이동함.
+    public String boardView(Model model, Integer id){
+
+        model.addAttribute("board", boardService.boardView(id));
+
+        return "boardview";
+    }
 }
 // db에 저장하기 위한 레포지토리
