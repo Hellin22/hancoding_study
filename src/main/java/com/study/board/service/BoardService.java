@@ -5,6 +5,8 @@ import com.study.board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BoardService {
 
@@ -17,4 +19,10 @@ public class BoardService {
 
         boardRepository.save(board);
     }
+
+    public List<Board> boardList(){
+
+        return boardRepository.findAll();
+    }
+
 } // jpa를 활용하여 테이블에 데이터 넣기

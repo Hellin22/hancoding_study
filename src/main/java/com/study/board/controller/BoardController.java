@@ -4,6 +4,7 @@ import com.study.board.entity.Board;
 import com.study.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,6 +37,15 @@ public class BoardController {
         boardService.write(board);
 
         return "";
+    }
+
+    @GetMapping("/board/list")
+    public String boardList(Model model){
+
+        model.addAttribute("list", boardService.boardList());
+        // boardService.boardList()를 하면 List<board>가 반환되는데 그걸 "list"라는 이름으로 뷰 템플릿에 넘기겠다는 의미
+
+        return "boardlist";
     }
 }
 // db에 저장하기 위한 레포지토리
