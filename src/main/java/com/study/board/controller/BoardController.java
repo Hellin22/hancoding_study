@@ -55,5 +55,12 @@ public class BoardController {
 
         return "boardview";
     }
+
+    @GetMapping("/board/delete") // localhost:8080/board/delete?id=1
+    public String boardDelete(Integer id){
+
+        boardService.boardDelete(id);
+        return "redirect:/board/list";
+    }
 }
 // db에 저장하기 위한 레포지토리

@@ -34,4 +34,10 @@ public class BoardService {
         // 매개변수로 id를 넣어야함.
     }
 
+    // 특정 게시글 삭제
+    public void boardDelete(Integer id){
+
+        boardRepository.deleteById(id);
+    }
+
 } // jpa를 활용하여 테이블에 데이터 넣기
