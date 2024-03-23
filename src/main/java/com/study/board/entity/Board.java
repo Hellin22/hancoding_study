@@ -13,11 +13,14 @@ public class Board { // table 이름과 같게 해주는게 좋다.
     @Id // primary key를 의미
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String title;
-
     private String content;
 
     // db에 존재하는 board라는 이름의 table의 필드를 선언해 준것.
     // 이렇게 다 한 후에는 JPA가 @Entity로 선언된 것을 읽어들여 처리한다.
+
+
+    // 파일 저장을 위한 name, path 칼럼 추가
+    private String filename;
+    private String filepath;
 }

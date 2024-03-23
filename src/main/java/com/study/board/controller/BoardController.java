@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 public class BoardController {
@@ -23,9 +26,9 @@ public class BoardController {
     }
 
     @PostMapping("/board/writepro")
-    public String boardWritePro(Board board, Model model){
+    public String boardWritePro(Board board, Model model, MultipartFile file) throws IOException {
 
-        boardService.write(board);
+        boardService.write(board, file);
 
         model.addAttribute("message", "등록이 성공적으로 완료");
         model.addAttribute("searchUrl", "/board/list");
@@ -74,13 +77,14 @@ public class BoardController {
     @PostMapping("/board/update/{id}")
     public String boardUpdate(@PathVariable("id") Integer id,
                               Board board,
-                              Model model){
+                              Model model,
+                              MultipartFile file) throws IOException{
 
         Board boardTmp = boardService.boardView(id);
         boardTmp.setTitle(board.getTitle());
         boardTmp.setContent(board.getContent());
 
-        boardService.write(boardTmp);
+        boardService.write(boardTmp, file);
 
         model.addAttribute("message", "수정이 성공적으로 완료");
         model.addAttribute("searchUrl", "/board/list");

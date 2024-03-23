@@ -33,9 +33,10 @@
 
     <div class="layout">
 <!-- actiion은 데이터들을 어디로 보내줄꺼냐 하는것-->
-        <form action="/board/writepro" method="post">
+        <form action="/board/writepro" method="post" enctype="multipart/form-data">
             <input name="title" type = "text">
             <textarea name="content"></textarea>
+            <input type="file" name="file">
             <button type="submit">작성</button>
 
         </form>
