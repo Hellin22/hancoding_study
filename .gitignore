@@ -46,3 +46,4 @@ gen
 
 .gradle
 build
+resources/static/files/
