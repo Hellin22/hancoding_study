@@ -23,21 +23,15 @@ public class BoardController {
     }
 
     @PostMapping("/board/writepro")
-    public String boardWritePro(/*String title, String content*/ Board board){
-        // boardwrite.html에서 form을 통해 title, content 데이터를 넘겨주고 그것들을 파라미터로 받는다.
-        // 이때, 너무 많은 파라미터가 존재하면 보기 안좋고 효율 안좋다.
-        // 따라서 아까 만들어 놓은 Board 클래스를 import 하고 진행
-
-//        System.out.println("title = " + title);
-//        System.out.println("content = " + content);
-
-//        System.out.println("제목은 : " + board.getTitle());
-//        System.out.println("내용은 : " + board.getContent());
-        // 롬복의 @Data를 사용해서 get 메서드를 사용
+    public String boardWritePro(Board board, Model model){
 
         boardService.write(board);
 
-        return "";
+        model.addAttribute("message", "등록이 성공적으로 완료");
+        model.addAttribute("searchUrl", "/board/list");
+
+        return "message";
+        // return "redirect:/board/list";
     }
 
     @GetMapping("/board/list")
@@ -58,10 +52,15 @@ public class BoardController {
     }
 
     @GetMapping("/board/delete") // localhost:8080/board/delete?id=1
-    public String boardDelete(Integer id){
+    public String boardDelete(Integer id,
+                              Model model){
+
+        model.addAttribute("message", "삭제가 성공적으로 완료");
+        model.addAttribute("searchUrl", "/board/list");
 
         boardService.boardDelete(id);
-        return "redirect:/board/list";
+        return "message";
+        // return "redirect:/board/list";
     }
 
     @GetMapping("/board/modify/{id}")
@@ -74,14 +73,19 @@ public class BoardController {
 
     @PostMapping("/board/update/{id}")
     public String boardUpdate(@PathVariable("id") Integer id,
-                              Board board){
+                              Board board,
+                              Model model){
 
         Board boardTmp = boardService.boardView(id);
         boardTmp.setTitle(board.getTitle());
         boardTmp.setContent(board.getContent());
 
         boardService.write(boardTmp);
-        return "redirect:/board/list";
+
+        model.addAttribute("message", "수정이 성공적으로 완료");
+        model.addAttribute("searchUrl", "/board/list");
+        return "message";
+        // return "redirect:/board/list";
     }
 }
 // db에 저장하기 위한 레포지토리
