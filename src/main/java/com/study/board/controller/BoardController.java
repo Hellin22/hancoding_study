@@ -42,9 +42,16 @@ public class BoardController {
 
     @GetMapping("/board/list")
     public String boardList(Model model,
-                            @PageableDefault(page = 0, size=10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+                            @PageableDefault(page = 0, size=10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                            String searchKeyword){
 
-        Page<Board> list = boardService.boardList(pageable);
+        Page<Board> list = null;
+
+        if(searchKeyword == null){ // 검색으로 들어온것
+            list = boardService.boardList(pageable);
+        }else{ // 따로 검색이 아닌 경우
+            list = boardService.boardSearchList(searchKeyword, pageable);
+        }
 
         int nowPage = list.getPageable().getPageNumber() + 1; // jpa 페이징 처리는 0 페이지부터 시작해서 1부터 시작하는걸로 바꾸기 위함
         int startPage = Math.max(nowPage-4, 1); // 4개의 페이지를 왼쪽에다 나타낼건데 1보다 적으면 안되니까 max 사용
